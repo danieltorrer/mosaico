@@ -11,7 +11,7 @@ var color = [
 var contenedor = document.getElementById("lienzo")
 paper = Raphael(contenedor,document.documentElement.clientWidth,550);
 triangulos = paper.set();
-var datos = new Array()
+var datos;
 var orientacion
 
 
@@ -69,7 +69,7 @@ function setThings(){
 	});
 	
 	$("#participamodal").on('click','#siguiente',function(){
-		datos = new Array()
+		datos = []
 		$("#registro .advice").hide()
 		if(validateform1()){
 			$("#participamodal .modal-body").html(siguientebody())
@@ -198,7 +198,7 @@ function validateform1(){
 }
 
 function validateform2(){
-	datos["prioridad"] =  sanitize_string($("#prioridad").val())
+	datos ["prioridad"] =  sanitize_string($("#prioridad").val())
 	datos ["hoy"] =		sanitize_string($("#today").val())
 	datos ["futuro"] =	sanitize_string($("#futuro").val())
 	datos ["accion"] =	sanitize_string($("input[name='hacer']:checked").val())
@@ -207,27 +207,29 @@ function validateform2(){
 }
 
 function lesendledata(){
+	 console.log(datos)
+	 console.log (typeof datos)
 	$.ajax({
 		type: "POST",
 		url: "class/cuestionario.php",
 		data : {
-			"data": datos
+			array : datos
 		},
 		dataType: "json",
 		success: showgood,
 		error: showbad
-	});
+	})
 }
 
 function showgood(data){
-	if(data){
+	//if(data){
 		$("#participamodal .modal-body").html("<p class='lead'>Gracias por tu participación.</p>")
-	}
-	else
-		showbad()
-
+	//}
+	//else
+	//	showbad()
 }
 
 function showbad(){
-	$("#participamodal .modal-body").html("<p class='lead'>Ocurrio un error, intenta de nuevo mas tarde.</p>")			
+	$("#participamodal .modal-body").html("<p class='lead'>Ocurrio un error, intenta mas tarde.</p>")
+	$("participamodal .modal-footer").html("")
 }

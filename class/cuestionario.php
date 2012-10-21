@@ -1,17 +1,9 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+include "class.php";
+$dato = new queries();
+$resultado = $dato->insertData($_POST["datos"]);
 
-/**
- * Description of cuestionario
- *
- * @author Daniel
- */
-class cuestionario {
-	//put your code here
-}
+json_encode($resultado);
 
 ?>
