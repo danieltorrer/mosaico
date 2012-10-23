@@ -16,6 +16,7 @@ p{
 svg{
     position: relative !important;
     margin: 0 auto !important;
+	height: 563px !important;
 }
 
 #participa{
@@ -24,7 +25,7 @@ svg{
     width: 35px;
     position: absolute;
     top: 20px;
-    left: 97.5%;
+    left: 97%;
     z-index: 100;
 	cursor: pointer!important;
 }
@@ -32,13 +33,13 @@ svg{
 #participa:hover{
     background: url(../img/participa_2.png) no-repeat;
     top: 20px;
-    left: 97%;
+    left: 96.5%;
 }
 
 #participa:active{
     background: url(../img/participa_1.png) no-repeat;
     top: 20px;
-    left: 97%;
+    left: 96.5%;
 }
 
 #logo{
@@ -71,7 +72,6 @@ svg{
 
 
 header{
-
     background: url(../img/copia.png) no-repeat;
     z-index: 1000;
     width: 100%;
@@ -103,7 +103,7 @@ header{
     background: url(../img/info_1.png) no-repeat;
     top: 40px;
     left: 870px;
-    height: 116px;
+    height: 80px;
     width: 116px;
     z-index: 1001;
 	cursor: pointer!important;
@@ -127,6 +127,7 @@ header{
 #lienzo{
     top: 0;
     left: 0;
+	height: 562px !important;
 }
 
 .span6{
@@ -160,7 +161,11 @@ footer ul li a:hover{
 }
 
 footer{
+	margin-top: 0;
+	background: url(../img/312.png) no-repeat;
 	text-align: center;
+	padding-top: 20px;
+	height: 60px;
 }
 
 #registro{

@@ -1,35 +1,13 @@
-var triangulos
-var tamano = 100
+var contenedor = document.getElementById("lienzo")
+var paper = Raphael(contenedor,document.documentElement.clientWidth,550);
+var triangulos = paper.set();
+var datos;
 var altura = 80.5 //100.5
 var lado = 116
-var paper
-var color = [
-"#483D2C",    "#756C57",    "#5E503C",    "#887F6E",    "#4F5884",    "#A6BFDF",    "#CCDEE8",    "#B6C7D1",
-"#FFF685",    "#FFF9AE",    "#88AD3F",    "#7FBF8B",    "#98C99F",    "#39B54A",    "#E86D24",    "#EA8E23",
-"#EEA320",    "#F2BC1A",    "#ED1C24",    "#9F1D20",    "#BE1E2D",    "#D14C55",    "#662D91",    "#92278F",
-"#A154A1",    "#C7A0CB",    "#414042",    "#58595B",    "#808285",    "#BCBEC0",    "#FFF200",    "#FFDE17"]
-var contenedor = document.getElementById("lienzo")
-paper = Raphael(contenedor,document.documentElement.clientWidth,550);
-triangulos = paper.set();
-var datos;
-var orientacion
-
-
+	
 $(document).ready(function(){
-	var triangulo
-	var random 
-	var tipo
-	setThings()   
-	for(var i=0;i<8;i++){
-		for(var j=0;j<27;j++){
-			tipo = j%2
-			orientacion = i%2
-			random = Math.floor(Math.random()*100)%32
-			//triangulo = paper.triangulo(tipo+1, j*(tamano/2)+(-orientacion*(tamano/2)),(i)*tamano,tamano,color[random],i,j)
-			triangulo = paper.equilatero( tipo, j*(lado/2) + (-orientacion *(lado/2)),(i*altura), color[random], i, j)
-			triangulos.push(triangulo)
-		}
-	}
+	setThings()
+	girartriangulos()
 })
 
 function setThings(){
@@ -92,41 +70,15 @@ function setThings(){
 		$("#registro .advice").hide()
 	})
 	
-	
-	
-	
 	$("#logo").click(function(){  
-		triangulos.forEach(function(e){
-			e.remove()
-		})
-        
-		for(var i=0;i<10;i++){
-			for(var j=0;j<27;j++){
-				tipo = j%2
-				orientacion = i%2
-				random = Math.floor(Math.random()*100)%32
-				//triangulo = paper.triangulo(tipo+1, j*(tamano/2)+(-orientacion*(tamano/2)),(i)*tamano,tamano,color[random],i,j)
-				triangulo = paper.equilatero( tipo, j*(116/2) + (-orientacion *(116/2)),(i*80.5), color[random], i, j)
-				triangulos.push(triangulo)
-			}
-		}
+		removetriangles()
+		girartriangulos()
 	})
 	
 	$('#videomodal').on('hidden', function () {
-		triangulos.forEach(function(e){
-			e.remove()
-		})
-        
-		for(var i=0;i<10;i++){
-			for(var j=0;j<27;j++){
-				tipo = j%2
-				orientacion = i%2
-				random = Math.floor(Math.random()*100)%32
-				//triangulo = paper.triangulo(tipo+1, j*(tamano/2)+(-orientacion*(tamano/2)),(i)*tamano,tamano,color[random],i,j)
-				triangulo = paper.equilatero( tipo, j*(116/2) + (-orientacion *(116/2)),(i*80.5), color[random], i, j)
-				triangulos.push(triangulo)
-			}
-		}
+		removetriangles()
+		girartriangulos()
+		
 	})
 }
 
@@ -191,6 +143,7 @@ function validateform1(){
 	datos['nombre'] = sanitize_string($("#nombrei").val())
 	datos['sexo'] = sanitize_string($("input[name='sexo']:checked").val())
 	datos['edad'] = sanitize_string($("select#edadp").val())
+	datos["mail"] = sanitize_string($("#mail").val())
 	datos['cp'] = sanitize_string($("#cp").val())
 	datos['estado'] = sanitize_string($("select#estadoForzado").val())
 	
@@ -207,13 +160,21 @@ function validateform2(){
 }
 
 function lesendledata(){
-	 console.log(datos)
-	 console.log (typeof datos)
+	
 	$.ajax({
 		type: "POST",
 		url: "class/cuestionario.php",
 		data : {
-			array : datos
+			"nombre" : datos["nombre"],
+			"sexo"	:	datos["sexo"],
+			"edad"	:	datos["edad"],
+			"correo" : datos["mail"],
+			"cp"	:	datos["cp"],
+			"estado":	datos["estado"],
+			"prioridad": datos["prioridad"],
+			"hoy"	:	datos["hoy"],
+			"futuro":	datos["futuro"],
+			"accion":	datos["accion"]
 		},
 		dataType: "json",
 		success: showgood,
@@ -223,13 +184,45 @@ function lesendledata(){
 
 function showgood(data){
 	//if(data){
-		$("#participamodal .modal-body").html("<p class='lead'>Gracias por tu participación.</p>")
-	//}
-	//else
-	//	showbad()
+	$("#participamodal .modal-body").html("<p class='lead'>Gracias por tu participación.</p>")
+//}
+//else
+//	showbad()
 }
 
 function showbad(){
 	$("#participamodal .modal-body").html("<p class='lead'>Ocurrio un error, intenta mas tarde.</p>")
 	$("participamodal .modal-footer").html("")
+}
+
+function removetriangles(){
+	triangulos.forEach(function(e){
+		e.remove()
+	})
+}
+
+function girartriangulos(){
+	var color = [
+	"#483D2C",    "#756C57",    "#5E503C",    "#887F6E",    "#4F5884",    "#A6BFDF",    "#CCDEE8",    "#B6C7D1",
+	"#FFF685",    "#FFF9AE",    "#88AD3F",    "#7FBF8B",    "#98C99F",    "#39B54A",    "#E86D24",    "#EA8E23",
+	"#EEA320",    "#F2BC1A",    "#ED1C24",    "#9F1D20",    "#BE1E2D",    "#D14C55",    "#662D91",    "#92278F",
+	"#A154A1",    "#C7A0CB",    "#414042",    "#58595B",    "#808285",    "#BCBEC0",    "#FFF200",    "#FFDE17"]
+	var orientacion
+	var triangulo
+	var random
+	var tipo
+	var anchopagina = document.documentElement.clientWidth
+	var numerodetriangulos = (anchopagina/lado+1)*2
+	//console.log()
+	triangulos = paper.set()
+	for(var i=0;i<7;i++){
+		for(var j=0;j<numerodetriangulos;j++){
+			tipo = j%2
+			orientacion = i%2
+			random = Math.floor(Math.random()*100)%32
+			//triangulo = paper.triangulo(tipo+1, j*(tamano/2)+(-orientacion*(tamano/2)),(i)*tamano,tamano,color[random],i,j)
+			triangulo = paper.equilatero( tipo, j*(lado/2) + (-orientacion *(lado/2)),(i*altura), color[random], i, j)
+			triangulos.push(triangulo)
+		}
+	}
 }

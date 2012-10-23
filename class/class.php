@@ -36,8 +36,8 @@ class queries {
 			return null;
 	}
 	
-	public function insertData($deita) {
-		//$sql = "Insert into basededatos values (null,$nombre,$sexo,$edad,$CP,$estado,null,)";
+	public function insertData() {
+		$sql = "Insert into registros values (null,$nombre,$sexo,$edad,$CP,$estado,null,)";
 		return "algo";
 	}
 
