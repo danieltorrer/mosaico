@@ -10,8 +10,7 @@ class Conectar {
 		//mysql_select_db("709717_mosaico") or
 		mysql_select_db("mosaico") or
 				die("Error de conexion: " . mysql_error()); //
-
-		mysql_query("SET NAMES 'utf-8'");
+		mysql_query("SET CHARACTER SET utf-8");
 
 		return $conexion;
 	}
@@ -27,18 +26,27 @@ class queries {
 			$res = mysql_query($sql, Conectar::con());
 			$data = array();
 			while ($reg = mysql_fetch_assoc($res)) {
-				$data[] = $reg;
+				$data[] = array_map("utf8_encode", $reg);
 			}
 			return $data;
 		}
-		
+
 		else
 			return null;
 	}
-	
-	public function insertData() {
-		$sql = "Insert into registros values (null,$nombre,$sexo,$edad,$CP,$estado,null,)";
-		return "algo";
+
+	public function insertData($nombre, $sexo, $edad, $mail, $cp, $estado, $hoy, $futuro, $prioridad, $accion) {
+		$sql = "Insert into registros values (null ,'" . $nombre . "','" . $sexo . "','" . $edad . "','" . $mail . "','" . $cp . "','" . $estado . "',null,null,null,null,null,null,null,'" . $hoy . "','" . $futuro . "','" . $prioridad . "','" . $accion . "')";
+		echo $sql;
+		$result = array();
+		
+		if (!mysql_query($sql, Conectar::con())) {
+			$result["response"] = null;
+		} else {
+			$result["response"] = true;
+		}
+
+		return $result;
 	}
 
 }

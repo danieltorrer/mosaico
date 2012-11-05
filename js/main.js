@@ -1,7 +1,7 @@
 var contenedor = document.getElementById("lienzo")
-var paper = Raphael(contenedor,document.documentElement.clientWidth,550);
-var triangulos = paper.set();
-var datos;
+var paper = Raphael(contenedor,document.documentElement.clientWidth,550)
+var triangulos = paper.set()
+var datos
 var altura = 80.5 //100.5
 var lado = 116
 	
@@ -16,12 +16,9 @@ function setThings(){
 		$("#participamodal").modal()
 	})
     
-	$("#triangulo").click(function(){
-		self.location="data.html"
-	})
-    
-	$("#proyecto").click(function(){
-		self.location="data.html"
+	$("#triangulo,#proyecto").click(function(){
+		window.location=$(this).find("a").attr("href"); 
+		return false;
 	})
 
 	/* --------------------- */
@@ -76,6 +73,7 @@ function setThings(){
 	})
 	
 	$('#videomodal').on('hidden', function () {
+		$(".modal-body .span6").html("")
 		removetriangles()
 		girartriangulos()
 		
@@ -123,9 +121,10 @@ function showcontainer(datos){
 		$("#edadp").text("edad: "+edad)
 		$("#sexop").text("sexo: "+datos[0].Sexo)
 		$("#coloniap").text("colonia: "+colonia)
+		$("#video").html('<iframe width="560" height="315" frameborder="0" allowfullscreen></iframe>')
 		$(".span6 iframe").attr('src','http://www.youtube.com/embed/'+datos[0].youtube)
 		$('#videomodal').modal().css({
-			'width': function () {
+			'width': function() {
 				return ($(document).width() *	.8) + 'px';  
 			},
 			'margin-left': function () { 
@@ -159,8 +158,7 @@ function validateform2(){
 	return ( datos["prioridad"] && datos["hoy"] && datos["futuro"] && datos["accion"])
 }
 
-function lesendledata(){
-	
+function lesendledata(){	
 	$.ajax({
 		type: "POST",
 		url: "class/cuestionario.php",
@@ -168,15 +166,15 @@ function lesendledata(){
 			"nombre" : datos["nombre"],
 			"sexo"	:	datos["sexo"],
 			"edad"	:	datos["edad"],
-			"correo" : datos["mail"],
+			"mail" : datos["mail"],
 			"cp"	:	datos["cp"],
 			"estado":	datos["estado"],
-			"prioridad": datos["prioridad"],
 			"hoy"	:	datos["hoy"],
 			"futuro":	datos["futuro"],
+			"prioridad": datos["prioridad"],
 			"accion":	datos["accion"]
 		},
-		dataType: "json",
+		//dataType: "json",
 		success: showgood,
 		error: showbad
 	})
@@ -184,15 +182,16 @@ function lesendledata(){
 
 function showgood(data){
 	//if(data){
-	$("#participamodal .modal-body").html("<p class='lead'>Gracias por tu participación.</p>")
-//}
-//else
-//	showbad()
+		$("#participamodal .modal-body").html("<p class='lead'>Gracias por tu participación.</p>")
+		$("#participamodal .modal-footer").html("")
+	//}
+	//else
+	//	showbad()
 }
 
 function showbad(){
 	$("#participamodal .modal-body").html("<p class='lead'>Ocurrio un error, intenta mas tarde.</p>")
-	$("participamodal .modal-footer").html("")
+	$("#participamodal .modal-footer").html("")
 }
 
 function removetriangles(){
@@ -215,7 +214,7 @@ function girartriangulos(){
 	var numerodetriangulos = (anchopagina/lado+1)*2
 	//console.log()
 	triangulos = paper.set()
-	for(var i=0;i<7;i++){
+	for(var i=0;i<6;i++){
 		for(var j=0;j<numerodetriangulos;j++){
 			tipo = j%2
 			orientacion = i%2

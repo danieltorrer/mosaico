@@ -34,8 +34,8 @@
             </div>
         </header>
 
-        <div id="triangulo"></div>
-		<div id="proyecto"></div>
+        <div id="triangulo"><a href="proyecto.html"></a></div>
+		<div id="proyecto"><a href="proyecto.html"></a></div>
         <div id="participa"></div>
         <div id="lienzo"></div>
 
@@ -55,8 +55,8 @@
 						<p id="sexop"></p>
 						<p id="coloniap"></p>
 					</div>
-					<div class="span6">
-						<iframe width="560" height="315" frameborder="0" allowfullscreen></iframe>
+					<div id="video" class="span6">
+						
 					</div>
 				</div>
 			</div>
@@ -79,8 +79,7 @@
 
 		<footer>
 			<ul class="unstyled">
-				<li><a>¿Que es mosaico Tijuana?</a></li>
-				<li><a>Agradecimientos</a></li>
+				<li><a href="agradecimientos.html">Agradecimientos</a></li>
 			</ul>
 		</footer>
 
@@ -90,7 +89,6 @@
 		<script src="js/plugins.js"></script>
 		<script src="js/vendor/bootstrap.min.js"></script>
 		<script src="js/main.js"></script>
-		<script src="js/rep.js"></script>
 
 	</body>
 </html>
