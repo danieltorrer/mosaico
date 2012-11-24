@@ -4,109 +4,101 @@ var color = [
 "#808285",    "#FFF200",    "#FFDE17"]
 
 var tamañodelagrafica = 1240
-var tamañoventana = document.documentElement.clientWidth
-
-var margin = {
-	top: 40, 
-	right: 10, 
-	bottom: 10, 
-	left: 10
-},
-width = 1000
-height = 450
-
+var width = 1100
+var height = 420
+var colores = d3.scale.category20();
 //colores
 $(document).ready(function(){
+	$.ajax({
+		type: "POST",
+		url: "class/graph.php",
+		data: {
+			"tipo"	:	0,
+			"edad"	:	0,
+			"sexo"	:	0
+		},
+		dataType: "json",
+		success: buildgraph,
+		error: showerror
+	})
 	
+	$("input:radio, #edadselect, #sexoselect").change(function(){
+		$("#contenedor-arbol").html('<br><br><h2>Cargando datos</h2><img src="img/load.gif">')
+		var tipo = $('input[name=mode]:checked').val()
+		var edad = $("#edadselect").val()
+		var sexo = $("#sexoselect").val()
+		
+		$.ajax({
+			type: "POST",
+			url: "class/graph.php",
+			data: {
+				"tipo" : tipo,
+				"edad" : edad,
+				"sexo" : sexo
+			},
+			dataType: "json",
+			success: buildgraph,
+			error: showerror
+		})
+		//$("#resultado").html("Query: Tipo" + tipo + " Edad: " + edad + " Sexo:"+sexo)
+	})
 
-	var colores = d3.scale.category20();
-	
-	//general shit
+})
+
+function makeprioridad(){
+	d3.json("class/prioridad.php", function(error, root) {
+		
+		})
+}
+
+function makeSueños(){
+	$.ajax({
+		type: "POST",
+		url: "class/suenos.php",
+		dataType: "json",
+		success: buildsueño,
+		error: showerror
+	});
+}
+
+function buildgraph(root){
+	//console.log(root)
+	$("#contenedor-arbol").html("");	
+	var div = d3.select("#contenedor-arbol").append("div")
+	.style("position", "relative")
+	.attr("class","treemap")
+	.style("width", (width) + "px")
+	.style("height", (height) + "px")
+		
 	var treemap = d3.layout.treemap()
 	.size([width, height])
 	.sticky(false)
 	.value(function(d) {
 		return d.size;
 	});
-
-
-	//posiciona el div
-	var div = d3.select("#contenedor-arbol").append("div")
-	.style("position", "relative")
-	.attr("class","treemap")
-	.style("width", (width) + "px")
-	.style("height", (height) + "px")
-	//.style("width", (width + margin.left + margin.right) + "px")
-	//.style("height", (height + margin.top + margin.bottom) + "px")
-	//.style("left", margin.left + "px")
-	//.style("top", margin.top + "px");
-
-	//
-	//d3.json("flare.json", function(error, root) {
-	d3.json("class/prioridad.php", function(error, root) {
-		//console.log(root)
 		
-		var node = div.datum(root).selectAll(".node")
-	
-		.data(treemap.nodes)
-	
-		.enter().append("div")
-	
-		.attr("class", "node")
-	
-		.attr("title", function(d) {
-			return d.children ? null : d.name +": " + d.size;
-		})
-	
-		.call(position)
-	
-		//.style("background", function(d) {return d.children ? color[Math.floor(Math.random()*100)%25] : null})
-	
-		.style("background", function(d) {
-			return d.children ? colores(d.name) : null;
-		})
-	
-		.on("mouseover", function() {
-			$(this).tooltip('show')
-		/*d3.select(this).enter().append("text")
-		.text(function(d) {
-			return d.x;
-		})
-		.attr("x", function(d) {
-			return x(d.x);
-		})
-		.attr("y", function (d) {
-			return y(d.y);
-		});*/
-		})
-		.text(function(d) {
-			return d.children ? null : d.name
-		//return d.children ? null : d.name +": " + d.size;
-		})
-	
-		//node.append("title")
-		//.text(function(d) { return d.name + (d.children ? "" : ": " + d.size); });
+	var node = div.datum(root).selectAll(".node")
+	.data(treemap.nodes)
+	.enter().append("div")
+	.attr("class", "node")
+	.attr("title", function(d) {
+		return d.children ? null : d.name +": " + d.size;
+	})
+	.call(position)
+	.style("background", function(d) {
+		return d.children ? colores(d.name) : null;
+	})
+	.on("mouseover", function() {
+		$(this).tooltip('show')
+	})
+	.html(function(d) {
+		return d.children ? null : "<p>" + d.name + "</p>"
+	})
+}
 
-		
-	  
-		d3.selectAll("input").on("change", function change() {
-			var value = this.value === "count"
-			? function() {
-				return 1;
-			}
-			: function(d) {
-				return d.size;
-			};
-
-			node
-			.data(treemap.value(value).nodes)
-			.transition()
-			.duration(1500)
-			.call(position);
-		});
-	});
-
-})
+function showerror(error){
+	console.log(error.toString())
+}
 
 function position() {
 	this.style("left", function(d) {
