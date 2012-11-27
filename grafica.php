@@ -4,51 +4,34 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Mosaico Tijuana</title>
+
 		<link rel="stylesheet" href="css/bootstrap.css">
 		<link rel="stylesheet" href="font/stylesheet.css">
-		<style>
-			body{
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
-
-			.node {
-				border: solid 1px white;
-				font: 15px sans-serif;
-				line-height: 12px;
-				overflow: hidden;
-				position: absolute;
-				text-indent: 2px;
-				color: white;
-			}
-
-			.node p{
-				padding-top: 20px;
-			}
-
-			.treemap{
-				margin: 0 auto!important;
-			}
-
-			#contenedor-arbol{
-				margin: 0 auto;
-				text-align: center;
-				padding: 60px;
-				height: 420px;
-			}
-
-		</style>
+		<link rel="stylesheet" href="css/grafica.css">
+		<script src="js/vendor/modernizr-2.6.1.min.js"></script>
+		
 	</head>
 	<body>
+		<div id="descripcion" class="container">
+			<div class="row">
+				<div class="offset1 span10">
+					<h2>Infografía</h2>
+					<p>
+						Para la realización del proyecto Mosaico Tijuana, con el objetivo de propiciar la participación ciudadana, Yo Propongo realizó un levantamiento de encuestas desde el 2 al 14 de octubre de 2012 donde se le preguntó a 7616 tijuanenses: ¿Cómo es la Tijuana de tus sueños y tú que harías o tú que propones para llegar a ese ideal?
+						A partir de todas las respuestas recolectadas se analizaron los resultados y arrojaron la siguiente infografía.
+					</p>
+				</div>
+			</div>
+		</div>
 		<div id="contenedor-arbol">
 			<br><br>
 			<h2>Cargando datos</h2>
 			<img src="img/load.gif">
 		</div>
-		<div class="container">
+		<div id="controles" class="container">
 			<div class="row">
 				<div class="span8 offset2">
 					<div class="span2">
@@ -77,11 +60,19 @@
 						</select>
 					</div>
 				</div>
-				<p id="resultado"></p>
+
 			</div>
 		</div>
 
-
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="span12">
+						<h4><a href="index.php">Regresar<a></h4>
+					</div>
+				</div>
+			</div>
+		</footer>
 		<script src="js/vendor/jquery-1.8.0.min.js"></script>
 		<script src="js/vendor/d3.v3.min.js"></script>
 		<script src="js/vendor/bootstrap.min.js"></script>

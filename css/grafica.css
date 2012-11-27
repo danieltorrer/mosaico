@@ -1,0 +1,60 @@
+body{
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	/*background: url(../img/full2.png) center center;*/
+}
+
+.node {
+	border: solid 1px white;
+	font: 15px sans-serif;
+	line-height: 12px;
+	overflow: hidden;
+	position: absolute;
+	text-indent: 2px;
+	color: white;
+}
+
+.node p{
+	padding-top: 20px;
+}
+
+.treemap{
+	margin: 0 auto!important;
+}
+
+#contenedor-arbol{
+	margin: 0 auto;
+	text-align: center;
+	padding: 10px 60px;
+	height: 420px;
+}
+
+#descripcion{
+	margin-top: 30px;
+	text-align: justify;
+}
+
+#controles{
+	margin-bottom: 30px!important;
+}
+
+footer{
+	margin-top: 20px!important;
+	text-align: center;
+	background: rgba(18,18,18,0.7);
+	height: 40px;
+	bottom: 0;
+	width: 100%;
+}
+
+footer a{
+	color: white;
+}
+
+footer a:hover{
+	color: white;
+}
+

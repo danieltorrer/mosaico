@@ -34,7 +34,7 @@
             </div>
         </header>
 
-        <div id="triangulo"><a href="proyecto.html"></a></div>
+        <div id="triangulo"><a href="grafica.php"></a></div>
 		<div id="proyecto"><a href="proyecto.html"></a></div>
         <div id="participa"></div>
         <div id="lienzo"></div>
@@ -82,7 +82,7 @@
 				<li><a href="agradecimientos.html">Agradecimientos</a></li>
 			</ul>
 		</footer>
-
+		
 		<script src="js/vendor/raphael-min.js"></script>
 		<script src="js/vendor/raphaelcustom.js"></script>
 		<script src="js/vendor/jquery-1.8.0.min.js"></script>
